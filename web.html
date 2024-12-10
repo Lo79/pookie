@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Marriage Probability Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f9fa;
+      color: #333;
+      text-align: center;
+      padding: 50px;
+    }
+    .container {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      max-width: 400px;
+      margin: auto;
+      padding: 20px;
+    }
+    input {
+      width: calc(100% - 20px);
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:disabled {
+      background-color: #ddd;
+    }
+    .result {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Marriage Probability Calculator</h1>
+    <input type="text" id="yourName" placeholder="Your Name">
+    <input type="text" id="partnerName" placeholder="Partner's Name">
+    <button id="enterButton" disabled>Calculate</button>
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    const yourNameInput = document.getElementById("yourName");
+    const partnerNameInput = document.getElementById("partnerName");
+    const enterButton = document.getElementById("enterButton");
+    const resultDiv = document.getElementById("result");
+
+    const validateNames = () => {
+      const isName = name => /^[A-Za-z]+$/.test(name.trim());
+      const isValid =
+        isName(yourNameInput.value) && isName(partnerNameInput.value);
+      enterButton.disabled = !isValid;
+    };
+
+    yourNameInput.addEventListener("input", validateNames);
+    partnerNameInput.addEventListener("input", validateNames);
+
+    enterButton.addEventListener("click", () => {
+      const probability = Math.floor(Math.random() * 100) + 1;
+      const funnyQuotes = [
+        "Not everyone gets a fairytale ending. Keep trying!",
+        "Looks like the universe has other plans!",
+      ];
+      const motivatingQuotes = [
+        "True love conquers all. Go for it!",
+        "With a bit of effort, anything is possible.",
+      ];
+
+      resultDiv.textContent = `Probability: ${probability}%\n${
+        probability < 50
+          ? funnyQuotes[Math.floor(Math.random() * funnyQuotes.length)]
+          : motivatingQuotes[Math.floor(Math.random() * motivatingQuotes.length)]
+      }`;
+
+      // Send data (optional, replace with backend API)
+      console.log({
+        yourName: yourNameInput.value,
+        partnerName: partnerNameInput.value,
+        probability,
+      });
+    });
+  </script>
+</body>
+</html>
